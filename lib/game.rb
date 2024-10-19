@@ -24,7 +24,7 @@ module Mastermind
       TURNS.times do |count|
         @guess = @breaker.guess_colors
         place_player_guess(count)
-        if @colors == @guess
+        if @colors == @board[count]
           puts "#{@breaker} has successfully guessed all the colors!"
           return
         end
