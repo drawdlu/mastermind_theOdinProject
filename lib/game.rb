@@ -19,7 +19,8 @@ module Mastermind
     end
 
     def start
-      @colors = @maker.choose_initial_colors
+      # manual set
+      @colors = %i[blue green blue yellow]
       p @colors
       TURNS.times do |count|
         @guess = @breaker.guess_colors
@@ -67,15 +68,31 @@ module Mastermind
 
     def clues
       clues_tally = { red: 0, white: 0 }
-      @colors.each_with_index do |element, index|
-        if element == @guess[index]
+      @colors.each_with_index do |color, index|
+        if color == @guess[index]
           clues_tally[:red] += 1
-          @guess[index] = nil
-        elsif @guess.include?(element)
+          guess_to_nil(index)
+        elsif guess_has?(color)
           clues_tally[:white] += 1
         end
       end
       clues_tally
+    end
+
+    # check for a guess index that is not equal to a corresponding index in code
+    def guess_has?(color)
+      indexes = @guess.each_index.select { |e| @guess[e] == color }
+      indexes.each do |index|
+        unless @colors[index] == @guess[index]
+          guess_to_nil(index)
+          return true
+        end
+      end
+      false
+    end
+
+    def guess_to_nil(index)
+      @guess[index] = nil
     end
   end
 end
