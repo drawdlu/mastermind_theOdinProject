@@ -33,12 +33,20 @@ module Mastermind
     end
 
     def place_player_guess(index)
-      @board[index] = @guess
+      @board[index] = @guess.clone
       print_board
     end
 
     def print_board
       print_clues
+      index = 0
+      4.times do
+        @board.each do |element|
+          print '●    '.send(element[index])
+        end
+        puts ''
+        index += 1
+      end
     end
 
     def print_clues
