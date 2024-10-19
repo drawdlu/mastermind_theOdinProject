@@ -6,7 +6,9 @@ module Mastermind
   # Handle computer decisions
   class ComputerPlayer < Player
     def choose_initial_colors
-      COLORS.sample(4)
+      random = []
+      TO_GUESS.times { random.push(COLORS.sample) }
+      random
     end
 
     def to_s
