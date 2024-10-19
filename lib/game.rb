@@ -20,10 +20,19 @@ module Mastermind
     def start
       @colors = @maker.choose_initial_colors
 
-      TURNS.times do
+      TURNS.times do |count|
         guess = @guesser.guess_colors
-        p guess
+        place_player_guess(guess, count)
+        if @colors == guess
+          puts "#{@guesser} has successfully guessed all the colors!"
+          return
+        end
       end
+      puts "#{@guesser} has failed to guess all the colors"
+    end
+
+    def place_player_guess(guess, index)
+      @board[index] = guess
     end
   end
 end

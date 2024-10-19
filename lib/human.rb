@@ -23,5 +23,9 @@ module Mastermind
     def format_guess(guess)
       guess.strip.downcase.to_sym
     end
+
+    def to_s
+      'Player'
+    end
   end
 end

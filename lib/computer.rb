@@ -8,5 +8,9 @@ module Mastermind
     def choose_initial_colors
       COLORS.sample(4)
     end
+
+    def to_s
+      'Computer'
+    end
   end
 end
