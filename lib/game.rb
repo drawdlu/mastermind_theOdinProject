@@ -4,7 +4,7 @@ require 'colorize'
 
 module Mastermind
   TURNS = 12
-  TO_GUESS = 4
+  CODE_SIZE = 4
   NEUTRAL_COLOR = :black
   COLORS = %i[blue green yellow cyan magenta red].freeze
   # Handles game loop
@@ -19,8 +19,7 @@ module Mastermind
     end
 
     def start
-      # manual set
-      @colors = %i[blue green blue yellow]
+      @colors = @maker.choose_initial_colors
       p @colors
       TURNS.times do |count|
         @guess = @breaker.guess_colors
@@ -54,7 +53,7 @@ module Mastermind
       place_clues
       @clues.each do |element|
         element.each { |key, value| value.times { print '|'.send(key) } }
-        (TO_GUESS - (element[:red] + element[:white])).times do
+        (CODE_SIZE - (element[:red] + element[:white])).times do
           print '|'.send(NEUTRAL_COLOR)
         end
         print ' '

@@ -6,22 +6,27 @@ module Mastermind
   # Handle computer decisions
   class HumanPlayer < Player
     def guess_colors
+      puts "COLORS: #{COLORS.map(&:upcase).join(', ')}"
+      choose_colors
+    end
+
+    def choose_initial_colors
       choose_colors
     end
 
     def choose_colors
       puts "These are the available colors #{COLORS.map(&:upcase).join(', ')}"
-      guesses = []
-      TO_GUESS.times do |count|
+      chosen_colors = []
+      CODE_SIZE.times do |count|
         print "Choose color #{count + 1}: "
-        guess = format_guess(gets.chomp)
-        COLORS.include?(guess) ? guesses.push(guess) : redo
+        color = format_color(gets.chomp)
+        COLORS.include?(color) ? chosen_colors.push(color) : redo
       end
-      guesses
+      chosen_colors
     end
 
-    def format_guess(guess)
-      guess.strip.downcase.to_sym
+    def format_color(color)
+      color.strip.downcase.to_sym
     end
 
     def to_s

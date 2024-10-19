@@ -7,7 +7,7 @@ module Mastermind
   class ComputerPlayer < Player
     def choose_initial_colors
       random = []
-      TO_GUESS.times { random.push(COLORS.sample) }
+      CODE_SIZE.times { random.push(COLORS.sample) }
       random
     end
 
