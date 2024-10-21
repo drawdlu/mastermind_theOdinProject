@@ -23,8 +23,14 @@ module Mastermind
       chosen_colors = []
       CODE_SIZE.times do |count|
         print "Color #{count + 1}: "
-        color = format_color(gets.chomp)
-        COLORS.include?(color) ? chosen_colors.push(color) : redo
+        choice = gets.chomp.downcase
+        COLORS.each_with_index do |color, index|
+          next unless color.to_s.downcase.slice(0..(choice.length - 1)) == choice
+
+          chosen_colors.push(COLORS[index])
+          break
+        end
+        redo if chosen_colors[count].nil?
       end
       chosen_colors
     end
@@ -35,6 +41,7 @@ module Mastermind
 
     def print_choices
       puts "COLORS: #{COLORS.map(&:upcase).join(', ')}"
+      puts 'Type first letter..'
     end
 
     def to_s
