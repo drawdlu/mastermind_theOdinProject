@@ -15,8 +15,7 @@ module Mastermind
     def choose_initial_colors
       print_choices
       puts 'Create your code (Pick 4 colors in order)'
-      # choose_colors
-      %i[yellow red red yellow]
+      choose_colors
     end
 
     def choose_colors
