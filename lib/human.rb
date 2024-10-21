@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'mastermind'
 require_relative 'player'
 
 module Mastermind
@@ -14,7 +15,8 @@ module Mastermind
     def choose_initial_colors
       print_choices
       puts 'Create your code (Pick 4 colors in order)'
-      choose_colors
+      # choose_colors
+      %i[yellow red red yellow]
     end
 
     def choose_colors

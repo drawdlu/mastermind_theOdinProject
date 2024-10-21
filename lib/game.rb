@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'mastermind'
 require 'colorize'
 
 module Mastermind
-  TURNS = 12
-  CODE_SIZE = 4
-  NEUTRAL_COLOR = :black
-  COLORS = %i[blue green yellow cyan magenta red].freeze
-
   # Handles game loop
   class Game
+    attr_reader :clues, :turn, :guess_log
+
+    include Mastermind
+
     def initialize(maker_class, breaker_class)
       @maker = maker_class.new(self)
       @breaker = breaker_class.new(self)
@@ -17,15 +17,17 @@ module Mastermind
       @code = []
       @guess_log = Array.new(TURNS) { Array.new(4, NEUTRAL_COLOR) }
       @clues = []
+      @turn = nil
     end
 
     def start
       @code = @maker.choose_initial_colors
       p @code
       TURNS.times do |count|
+        @turn = count
         @guess = @breaker.guess_colors
         place_player_guess(count)
-        if @code == @guess_log[count]
+        if clues[-1][:red] == CODE_SIZE
           puts "#{@breaker} has successfully guessed all the colors!"
           return
         end
@@ -63,36 +65,7 @@ module Mastermind
     end
 
     def place_clues
-      @clues.push(clues)
-    end
-
-    def clues
-      clues_tally = { red: 0, white: 0 }
-      @code.each_with_index do |color, index|
-        if color == @guess[index]
-          clues_tally[:red] += 1
-          guess_to_nil(index)
-        elsif guess_has?(color)
-          clues_tally[:white] += 1
-        end
-      end
-      clues_tally
-    end
-
-    # check for a guess index that is not equal to a corresponding index in code
-    def guess_has?(color)
-      indexes = @guess.each_index.select { |e| @guess[e] == color }
-      indexes.each do |index|
-        unless @code[index] == @guess[index]
-          guess_to_nil(index)
-          return true
-        end
-      end
-      false
-    end
-
-    def guess_to_nil(index)
-      @guess[index] = nil
+      @clues.push(clue(@code, @guess))
     end
   end
 end
