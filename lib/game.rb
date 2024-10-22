@@ -6,7 +6,7 @@ require 'colorize'
 module Mastermind
   # Handles game loop
   class Game
-    attr_reader :clues, :turn, :guess_log, :code
+    attr_reader :clues, :turn, :guess_log, :code, :breaker
 
     include Mastermind
 
@@ -22,7 +22,6 @@ module Mastermind
 
     def start
       @code = @maker.choose_initial_colors
-      p @code
       TURNS.times do |count|
         @turn = count
         @guess = @breaker.guess_colors
@@ -34,6 +33,8 @@ module Mastermind
       end
       puts "#{@breaker} has failed to guess all the colors"
     end
+
+    private
 
     def place_player_guess(index)
       @guess_log[index] = @guess.clone

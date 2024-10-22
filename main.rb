@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'lib/game'
-require_relative 'lib/computer'
+require_relative 'lib/computer_breaker'
+require_relative 'lib/computer_maker'
 require_relative 'lib/human'
 
 # Starts game
@@ -17,10 +18,10 @@ module GameStart
   case choice
   when 'm'
     maker = HumanPlayer
-    breaker = ComputerPlayer
+    breaker = ComputerBreaker
   else
     breaker = HumanPlayer
-    maker = ComputerPlayer
+    maker = ComputerMaker
   end
 
   game = Game.new(maker, breaker)

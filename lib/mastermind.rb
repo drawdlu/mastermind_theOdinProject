@@ -6,9 +6,10 @@ module Mastermind
   CODE_SIZE = 4
   NEUTRAL_COLOR = :black
   COLORS = %i[blue green yellow cyan magenta red].freeze
+  LAST_INDEX = COLORS.length - 1
 
   def clue(color_code, player_guess)
-    guess = player_guess.clone
+    guess = player_guess.dup
     clue_tally = { red: 0, white: 0 }
     color_code.each_with_index do |color, index|
       if color == guess[index]

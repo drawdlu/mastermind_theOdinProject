@@ -18,6 +18,8 @@ module Mastermind
       choose_colors
     end
 
+    private
+
     def choose_colors
       chosen_colors = []
       CODE_SIZE.times do |count|
