@@ -12,10 +12,14 @@ the unchosen role is played by the computer
 - The code breaker is given 12 chances to guess
 - The game is won only after the color array is equal to the guess array `code_array == guess_array`
 
+## Computer Code Breaker
+- I decided to use Knuth's Algorithm to implement the computer as a code breaker
+
 ## Project Focus
-Utilizing OOP lessons to build modularized and encapsulated code
+- Utilizing OOP lessons to build modularized and encapsulated code
 
 ## Gems used
 - colorize
+- RuboCop
 
 This is a project on "The Odin Project" Ruby Course
