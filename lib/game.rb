@@ -6,7 +6,7 @@ require 'colorize'
 module Mastermind
   # Handles game loop
   class Game
-    attr_reader :clues, :turn, :guess_log, :code, :breaker
+    attr_reader :clues, :turn, :guess_log, :breaker
 
     include Mastermind
 

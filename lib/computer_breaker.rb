@@ -32,7 +32,6 @@ module Mastermind
         guess = @all_possibilities[max_score_index]
       end
       @guesses.push(guess)
-      puts 'INCLUDED' if @possibilities.include?(guess)
       color_array(guess)
     end
 
@@ -61,14 +60,18 @@ module Mastermind
       return @all_possibilities.find_index(@possibilities.to_a[0]) if remaining == 1
 
       @all_possibilities.each do |code|
-        if @guesses.include?(code)
-          all_scores.push(0)
-          next
-        end
-        score = score(code, remaining)
+        score = get_score(code, remaining)
         all_scores.push(score)
       end
       all_scores.find_index(all_scores.max)
+    end
+
+    def get_score(code, remaining)
+      if @guesses.include?(code)
+        0
+      else
+        score(code, remaining)
+      end
     end
 
     def score(code, remaining)
